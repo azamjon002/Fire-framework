@@ -22,10 +22,28 @@ class Router
         $this->routes['post'][$url]=$callback;
     }
 
-    public function view(string $view)
+    public function view(string $view, $data = [])
     {
+        $layout = $this->layout_base();
+        $content = $this->layout_content($view, $data);
+        return str_replace('{{content}}', $content, $layout);
+    }
+
+    public function layout_content(string $view, $data=[])
+    {
+        foreach ($data as $key=>$datum) {
+            $$key = $datum;
+        }
         ob_start();
         include "../views/$view.php";
+        return ob_get_clean();
+    }
+
+    public function layout_base()
+    {
+        $layout = Fire::$fire->controller->layout;
+        ob_start();
+        include "../views/layouts/$layout.php";
         return ob_get_clean();
     }
 
@@ -37,13 +55,20 @@ class Router
         $callback = $this->routes[$method][$url]?? false;
 
         if (!$callback){
-            echo "Not Found!";
+            Fire::$fire->controller->setLayout('_blanc');
+            Fire::$fire->response->setStatusCode('404');
+           return $this->view('errors/404');
         }else{
 
             if (is_string($callback)){
                 return $this->view($callback);
             }
-            call_user_func($callback);
+            if (is_array($callback)){
+                $callback[0] = new $callback[0]();
+                Fire::$fire->controller = $callback[0];
+            }
+
+            call_user_func($callback, $this->request);
         }
     }
 }

@@ -1,4 +1,4 @@
+<?php
 
-<h1>
-    salom men viewsman
-</h1>
+
+\app\base\Magic::dd($model);
