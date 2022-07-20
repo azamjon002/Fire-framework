@@ -1,0 +1,15 @@
+{
+    "name": "azamjon/fire_framework",
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "authors": [
+        {
+            "name": "azamjon002",
+            "email": "azamjonqochqorov002@gmail.com"
+        }
+    ],
+    "require": {}
+}
