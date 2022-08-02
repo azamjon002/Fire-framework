@@ -31,4 +31,22 @@ class Request
         return $this->getMethod() == 'post';
     }
 
+    public function getBody()
+    {
+        $massiv = [];
+
+        if ($this->isGet()){
+            foreach ($_GET as $key => $item) {
+                $massiv[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            }
+        }
+
+        if ($this->isPost()){
+            foreach ($_POST as $key => $item) {
+                $massiv[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            }
+        }
+        return $massiv;
+    }
+
 }
