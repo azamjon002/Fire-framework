@@ -22,7 +22,7 @@ class RegisterController extends Controller
             $model->load($request->getBody());
 
             if ($model->validate() && $model->save()){
-                Magic::dd('uraaa');
+
             }
 
             $this->view('register', ['model'=>$model]);

@@ -9,9 +9,11 @@ class Fire
     public static Fire $fire;
     public Response $response;
     public Controller $controller;
+    public Database $db;
 
-    public function __construct()
+    public function __construct($config)
     {
+        $this->db = new Database($config['db']);
         $this->controller = new Controller();
         $this->response =new Response();
         self::$fire = $this;

@@ -2,6 +2,7 @@
 
 namespace app\model;
 
+use app\base\Fire;
 use app\base\Magic;
 use app\base\Model;
 
@@ -14,6 +15,11 @@ class RegisterModel extends Model
     public string $password = '';
     public string $confirm_password = '';
 
+    public function save()
+    {
+        $this->password = password_hash($this->password, PASSWORD_BCRYPT);
+        return parent::save();
+    }
 
     function rules()
     {
