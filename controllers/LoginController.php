@@ -4,12 +4,13 @@ namespace app\controllers;
 
 use app\base\Controller;
 use app\base\Magic;
+use app\base\Response;
 use app\model\LoginModel;
 use app\base\Request;
 
 class LoginController extends Controller
 {
-    public function login(Request $request)
+    public function login(Request $request, Response $response)
     {
         $model = new LoginModel();
 
@@ -20,8 +21,10 @@ class LoginController extends Controller
         }else{
             $model->load($request->getBody());
 
-            if ($model->validate() && $model->save()){
-                Magic::dd('uraaa');
+
+
+            if ($model->validate() && $model->login()){
+                $response->redirect('/');
             }
 
             $this->view('login', ['model'=>$model]);

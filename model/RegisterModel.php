@@ -2,26 +2,32 @@
 
 namespace app\model;
 
+use app\base\DbModel;
 use app\base\Fire;
 use app\base\Magic;
 use app\base\Model;
 
-class RegisterModel extends Model
+class RegisterModel extends DbModel
 {
 
+    const STATUS_ACTIVE = 10;
+    const STATUS_INACTIVE = 9;
+    const STATUS_DELETED = 0;
     public string $firstname = '';
     public string $lastname = '';
     public string $email = '';
     public string $password = '';
     public string $confirm_password = '';
+    public int $status;
 
     public function save()
     {
+        $this->status = self::STATUS_INACTIVE;
         $this->password = password_hash($this->password, PASSWORD_BCRYPT);
         return parent::save();
     }
 
-    function rules()
+    public function rules()
     {
         return[
             'firstname'=>[self::RULE_REQUIRED],
@@ -34,5 +40,19 @@ class RegisterModel extends Model
     }
 
 
+    public function tablename()
+    {
+        return 'users';
+    }
 
+    function attributes()
+    {
+        return [
+            'firstname',
+            'lastname',
+            'email',
+            'password',
+            'status',
+        ];
+    }
 }

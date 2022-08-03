@@ -2,9 +2,11 @@
 
 namespace app\model;
 
+use app\base\DbModel;
+use app\base\Magic;
 use app\base\Model;
 
-class LoginModel extends Model
+class LoginModel extends DbModel
 {
 
     public string $email = '';
@@ -18,5 +20,32 @@ class LoginModel extends Model
         ];
 
     }
+
+    public function login()
+    {
+        $user= self::find(['email'=>$this->email]);
+        if (!$user){
+            $this->errors['email'][]="Bunday email mavjud emas!";
+            return false;
+        }
+        if (!password_verify($this->password, $user->password)){
+            $this->errors['password'][]="Parol xato kiritildi!";
+        }
+        return true;
+    }
+
+    function tablename()
+    {
+        return 'users';
+    }
+
+    function attributes()
+    {
+       return [
+           'email',
+           'password',
+       ];
+    }
+
 
 }

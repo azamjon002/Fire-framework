@@ -59,10 +59,7 @@ abstract class Model
         return empty($this->errors);
     }
 
-    public function save()
-    {
-        return true;
-    }
+
 
     public function hasErrors($attribute)
     {

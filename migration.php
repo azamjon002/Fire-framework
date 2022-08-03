@@ -5,7 +5,7 @@ use app\base\Fire;
 ini_set('display_errors',1);
 require_once 'vendor/autoload.php';
 
-$dotenv = \Dotenv\Dotenv::createImmutable(dirname(__DIR__));
+$dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 $config = [

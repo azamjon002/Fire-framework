@@ -5,11 +5,13 @@ namespace app\base;
 class Router
 {
     public Request $request;
+    public Response $response;
     public array $routes =[];
 
     public function __construct(Request $request)
     {
         $this->request = $request;
+        $this->response = new Response();
     }
 
     public function get($url, $callback)
@@ -68,7 +70,7 @@ class Router
                 Fire::$fire->controller = $callback[0];
             }
 
-            call_user_func($callback, $this->request);
+            call_user_func($callback, $this->request, $this->response);
         }
     }
 }
