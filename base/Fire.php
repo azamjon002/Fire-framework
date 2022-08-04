@@ -10,9 +10,11 @@ class Fire
     public Response $response;
     public Controller $controller;
     public Database $db;
+    public Session $session;
 
     public function __construct($config)
     {
+        $this->session = new Session();
         $this->db = new Database($config['db']);
         $this->controller = new Controller();
         $this->response =new Response();

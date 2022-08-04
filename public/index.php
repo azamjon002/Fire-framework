@@ -2,7 +2,7 @@
 
 use app\base\Fire;
 use app\controllers\HomeController;
-ini_set('display_errors',1);
+//ini_set('display_errors',1);
 require_once '../vendor/autoload.php';
 
 $dotenv = \Dotenv\Dotenv::createImmutable(dirname(__DIR__));

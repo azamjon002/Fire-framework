@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\base\Controller;
+use app\base\Fire;
 use app\base\Magic;
 use app\base\Request;
 use app\base\Response;
@@ -23,6 +24,8 @@ class RegisterController extends Controller
             $model->load($request->getBody());
 
             if ($model->validate() && $model->save()){
+
+                Fire::$fire->session->setFlash('info', 'Siz muvaffaqiyatli ro\'yhatdan o\'tdingiz');
                 $response->redirect('login');
             }
 

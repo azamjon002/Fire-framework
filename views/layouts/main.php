@@ -27,7 +27,9 @@
         </div>
     </div>
 </nav>
-
+<?php
+ \app\base\Fire::$fire->session->display('info', 'danger');
+?>
 <div class="container">
     {{content}}
 </div>
