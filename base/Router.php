@@ -68,6 +68,12 @@ class Router
             if (is_array($callback)){
                 $callback[0] = new $callback[0]();
                 Fire::$fire->controller = $callback[0];
+
+                Fire::$fire->controller->action = $callback[1];
+
+                foreach (Fire::$fire->controller->middlewares as $middleware) {
+                    $middleware->tekshiruv();
+                }
             }
 
             call_user_func($callback, $this->request, $this->response);

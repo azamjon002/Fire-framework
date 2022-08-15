@@ -10,6 +10,7 @@ abstract class Model
     public const RULE_MIN = 'min';
     public const RULE_MAX = 'max';
     public const RULE_EQUAL = 'equal';
+    public const RULE_UNIQUE = 'unique';
 
 
     public function load(array $getBody)
@@ -41,6 +42,18 @@ abstract class Model
 
                 if ($ruleName == self::RULE_EMAIL && !filter_var($value, FILTER_VALIDATE_EMAIL)){
                     $this->errors[$attribute][]="Email xato kiritildi";
+                }
+
+                if ($ruleName == self::RULE_UNIQUE){
+                    $table = $this->tablename();
+
+
+                    $sql = "select * from $table where $attribute = '$value'";
+                    $test = Fire::$fire->db->query($sql)->fetch_row();
+
+                    if ($test!=0){
+                        $this->errors[$attribute][]="Ushbu email allaqachon foydalanilgan";
+                    }
                 }
 
                 if ($ruleName == self::RULE_MIN && strlen($value) < $rule[self::RULE_MIN]){

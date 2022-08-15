@@ -36,7 +36,7 @@ class Session
     {
         $message = $this->getFlash($key);
         if ($message){
-            echo "<div class='alert alert-$color'>$message</div>";
+            echo "<div class='alert alert-$color my-2'>$message</div>";
         }
     }
 

@@ -21,22 +21,34 @@
                 </li>
             </ul>
             <form class="d-flex">
-                <a href="/login" class="btn btn-primary mx-2" >Login</a>
-                <a href="/register" class="btn btn-primary" >Register</a>
+                <?php
+                if (\app\base\Fire::$fire->isGuest()){
+
+                    echo '<a href="/login" class="btn btn-primary mx-2" >Login</a>';
+                    echo  '<a href="/register" class="btn btn-primary" >Register</a> ';
+
+                }else{
+                    ?>
+                    <a href="/logout" class="btn btn-primary mx-2" >Logout</a>(<?=\app\base\Fire::$fire->getDisplayName()?>)
+
+                <?php
+                }
+                ?>
+
             </form>
         </div>
     </div>
 </nav>
-<?php
- \app\base\Fire::$fire->session->display('info', 'danger');
-?>
 <div class="container">
+<?php
+ \app\base\Fire::$fire->session->display('info', 'info');
+?>
     {{content}}
 </div>
 
-<footer class="py-3 bg-dark fixed-bottom">
-    <div class="container px-4"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>
-</footer>
+<!--<footer class="py-3 bg-dark fixed-bottom">-->
+<!--    <div class="container px-4"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>-->
+<!--</footer>-->
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

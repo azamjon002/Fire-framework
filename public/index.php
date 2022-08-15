@@ -31,5 +31,13 @@ $fire->router->post('/register', [\app\controllers\RegisterController::class, 'r
 
 $fire->router->get('/login', [\app\controllers\LoginController::class, 'login']);
 $fire->router->post('/login', [\app\controllers\LoginController::class, 'login']);
+$fire->router->get('/logout', [\app\controllers\LoginController::class, 'logout']);
+$fire->router->get('/profile', [\app\controllers\ProfileController::class, 'index']);
+
+try {
 
 $fire->run();
+}catch (Exception $exception){
+    Fire::$fire->controller->setLayout('_blanc');
+    Fire::$fire->controller->view('errors/404');
+}

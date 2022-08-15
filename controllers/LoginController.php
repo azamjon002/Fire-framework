@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\base\Controller;
+use app\base\Fire;
 use app\base\Magic;
 use app\base\Response;
 use app\model\LoginModel;
@@ -29,6 +30,13 @@ class LoginController extends Controller
 
             $this->view('login', ['model'=>$model]);
         }
+    }
+
+    public function logout(Request $request, Response $response)
+    {
+        Fire::$fire->logout();
+
+        $response->redirect('/');
     }
 
 }

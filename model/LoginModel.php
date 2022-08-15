@@ -3,6 +3,7 @@
 namespace app\model;
 
 use app\base\DbModel;
+use app\base\Fire;
 use app\base\Magic;
 use app\base\Model;
 
@@ -31,7 +32,8 @@ class LoginModel extends DbModel
         if (!password_verify($this->password, $user->password)){
             $this->errors['password'][]="Parol xato kiritildi!";
         }
-        return true;
+
+        return Fire::$fire->login($user);
     }
 
     function tablename()
